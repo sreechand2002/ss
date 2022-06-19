@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        #include< stdio.h>
+            #include< unistd.h>
+            #include< stdlib.h>
+            static void charatatime (char *);
+            int main (void)
+            {
+            pid_t pid;
+            if ((pid=fork( ))< 0)
+            {
+            printf("fork error\n");
+            }
+            else if(pid==0)
+            {
+            charatatime("Output from child\n");
+            }
+            else
+            {
+            charatatime("Output from parent\n");
+            }
+            exit(0);
+            }
+            static void charatatime(char *str)
+            {
+            char *ptr;
+            int c;
+            setbuf(stdout,NULL); /* set unbuffered*/
+            for(ptr=str;(c=*ptr++)!=0;)
+            putc(c,stdout);
+            }
+    </p>
+</body>
+</html>

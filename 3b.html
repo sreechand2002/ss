@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        %{
+            #include < stdio.h >
+            int cc=0;
+            %}
+            %x CMNT
+            %%
+            "/*" {BEGIN CMNT;}
+            < CMNT >. ;
+            < CMNT >"*/" {BEGIN 0; cc++;}
+            %%
+            int yywrap() { }
+            int main(int argc, char *argv[])
+            {
+            if(argc!=3)
+            {
+            printf("Usage : %s < scr_file > < dest_file >\n",argv[0]);
+            return 0;
+            }
+            yyin=fopen(argv[1],"r");
+            yyout=fopen(argv[2],"w");
+            yylex();
+            printf("\nNumber of multiline comments = %d\n",cc);
+            return 0;
+            }
+    </p>
+</body>
+</html>

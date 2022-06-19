@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        %{
+            #include "y.tab.h"
+            %}
+            %%
+            [0-9]+(\.[0-9]+)? {return NUM;}
+            [a-zA-Z][_a-zA-Z0-9]* {return ID;}
+            [\t] ;
+            \n {return 0;}
+            . {return yytext[0];}
+            %%
+            int yywrap() { }
+            
+    </p>
+
+    <p>
+        %{
+            #include< stdio.h >
+            %token NUM ID
+            %left '+''-'
+            %left '*''/'
+
+            %%
+            expr:e {printf("valid expression\n"); exit(0);}
+            e: e'+'e | e'-'e | e'*'e|e'/'e|'('e')'|NUM|ID;
+            %%
+            int main()
+            {
+                printf("enter expression:");
+                yyparse();
+                return 0;
+            }
+
+            int yyerror()
+            {
+                printf("Invalid ");
+                exit(0);
+            }
+        }
+    </p>
+</body>
+</html>
